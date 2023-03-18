@@ -32,8 +32,8 @@ export default {
     googleAuthUrl() {
       const url = 'https://accounts.google.com/o/oauth2/v2/auth'
       const options = {
-        redirect_uri: 'http://localhost:8080/auth',
-        client_id: '30455015157-1pd4d0d2j9gntb0qk8pvlgprr5d4ip7m.apps.googleusercontent.com',
+        redirect_uri: process.env.VUE_APP_GOOGLE_REDIRECT_URI,
+        client_id: process.env.VUE_APP_GOOGLE_CLIENT_ID,
         access_type: 'offline',
         response_type: 'code',
         prompt: 'consent',
