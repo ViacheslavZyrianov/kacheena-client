@@ -15,6 +15,11 @@ export default [
     to: '/exercises'
   },
   {
+    title: 'clubs.label',
+    icon: 'mdi-home-group',
+    to: '/clubs'
+  },
+  {
     title: 'settings.label',
     icon: 'mdi-cog',
     to: '/settings'

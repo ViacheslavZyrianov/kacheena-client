@@ -142,6 +142,40 @@ export default {
       placeholder: 'Some additional info'
     }
   },
+  clubs: {
+    label: 'Clubs',
+    addButton: 'Add club',
+    form: {
+      title: {
+        label: 'Title',
+        placeholder: 'Enter title'
+      },
+      address: {
+        label: 'Address',
+        placeholder: 'Enter address'
+      },
+      instagram: {
+        label: 'Instagram link',
+        placeholder: 'instagram.com/yourinstagram'
+      },
+      facebook: {
+        label: 'Facebook link',
+        placeholder: 'facebook.com/yourfacebook'
+      },
+      linkedin: {
+        label: 'Linkedin link',
+        placeholder: 'linkedin.com/yourlinkedin'
+      },
+      site: {
+        label: 'Site link',
+        placeholder: 'yoursitelink.com'
+      },
+      notes: {
+        label: 'Additional info',
+        placeholder: 'Some notes...'
+      }
+    }
+  },
   settings: {
     label: 'Settings',
     googleAuthId: {

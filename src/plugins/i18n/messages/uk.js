@@ -142,6 +142,40 @@ export default {
       placeholder: 'Трохи додаткової інфи'
     }
   },
+  clubs: {
+    label: 'Клуби',
+    addButton: 'Додати клуб',
+    form: {
+      title: {
+        label: 'Назва',
+        placeholder: 'Введіть назву'
+      },
+      address: {
+        label: 'Адреса',
+        placeholder: 'Введіть адресу'
+      },
+      notes: {
+        label: 'Додаткова інформація',
+        placeholder: 'Якісь нотатки...'
+      },
+      instagram: {
+        label: 'Посилання на інстаграм',
+        placeholder: 'instagram.com/yourinstagram'
+      },
+      facebook: {
+        label: 'Посилання на фейсбук',
+        placeholder: 'facebook.com/yourfacebook'
+      },
+      linkedin: {
+        label: 'Посилання на лінкедін',
+        placeholder: 'linkedin.com/yourlinkedin'
+      },
+      site: {
+        label: 'Посилання на сайт',
+        placeholder: 'yoursitelink.com'
+      },
+    }
+  },
   settings: {
     label: 'Налаштування',
     googleAuthId: {

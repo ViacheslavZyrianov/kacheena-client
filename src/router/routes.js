@@ -28,5 +28,10 @@ export default [
     path: '/trainees/:id',
     name: 'Trainee',
     component: () => import('../views/TraineeView/index.vue')
+  },
+  {
+    path: '/clubs',
+    name: 'Clubs',
+    component: () => import('../views/ClubsView/index.vue')
   }
 ]
