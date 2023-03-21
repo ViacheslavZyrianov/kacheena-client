@@ -61,7 +61,7 @@
         />
         <v-btn
           :disabled="isButtonDisabled"
-          :laoding="isButtonLoading"
+          :loading="isButtonLoading"
           color="success"
           block
           @click="onFormSubmit"
