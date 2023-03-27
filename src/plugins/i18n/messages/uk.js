@@ -3,7 +3,8 @@ export default {
     add: 'Додати',
     save: 'Зберегти',
     edit: 'Редагувати',
-    delete: 'Видалити'
+    delete: 'Видалити',
+    kg: 'кг'
   },
   auth: {
     label: 'Авторизуйся, бубласка'
@@ -99,6 +100,9 @@ export default {
         nextMonth: 'Наступного місяця',
         customDate: 'Обрати дату'
       }
+    },
+    weight: {
+      label: 'Вага'
     }
   },
   exercises: {

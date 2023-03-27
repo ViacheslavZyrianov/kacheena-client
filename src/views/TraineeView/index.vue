@@ -22,6 +22,11 @@
         <training />
       </v-col>
     </v-row>
+    <v-row>
+      <v-col cols="12">
+        <weight />
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -31,12 +36,14 @@ import { mapActions } from 'vuex'
 import userCard from '@/components/UserCard/index.vue'
 
 import training from './training/index.vue'
+import weight from './weight/index.vue'
 
 export default {
   name: 'TraineeView',
   components: {
     userCard,
-    training
+    training,
+    weight
   },
   data: () => ({
     user: null

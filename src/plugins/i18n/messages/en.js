@@ -3,7 +3,8 @@ export default {
     add: 'Add',
     save: 'Save',
     edit: 'Edit',
-    delete: 'Delete'
+    delete: 'Delete',
+    kg: 'kg'
   },
   auth: {
     label: 'Authenticate, pleps'
@@ -99,6 +100,9 @@ export default {
         nextMonth: 'Next month',
         customDate: 'Custom date'
       }
+    },
+    weight: {
+      label: 'Weight'
     }
   },
   exercises: {
