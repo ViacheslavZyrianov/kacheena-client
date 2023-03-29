@@ -44,6 +44,9 @@ export default {
         male: 'Чоловіча',
         female: 'Жіноча'
       },
+      club: {
+        label: 'Клуб'
+      },
       submitButton: {
         label: 'Зареєструвати'
       }

@@ -121,6 +121,16 @@
                 :placeholder="$t('trainees.byRegistration.sex.label')"
               />
 
+              <v-select
+                v-if="getClubsForSelect"
+                v-model="traineeRegistration.club.value"
+                :items="getClubsForSelect"
+                filled
+                required
+                :readonly="getClubsForSelect.length === 1"
+                :label="$t('trainees.byRegistration.club.label')"
+              />
+
               <v-row>
                 <v-col>
                   <v-btn
@@ -176,46 +186,6 @@ export default {
       ]
     },
     isRegisterTraineeFormValid: false,
-    traineeRegistration: {
-      name: {
-        value: '',
-        rules: [
-          v => !!v || 'Name is required',
-          v => v.length <= 20 || 'Name must be less than 10 characters',
-        ]
-      },
-      surname: {
-        value: '',
-        rules: [
-          v => !!v || 'Surname is required',
-          v => v.length <= 20 || 'Surame must be less than 10 characters',
-        ]
-      },
-      birthdate: {
-        value: '',
-        rules: [
-          v => !!v || 'Birthdate is required'
-        ],
-        isMenuVisible: false,
-        activePicker: null
-      },
-      sex: {
-        value: '',
-        list: [
-          {
-            text: 'Male',
-            value: 'male'
-          },
-          {
-            text: 'Female',
-            value: 'female'
-          }
-        ],
-        rules: [
-          v => !!v || 'Sex is required'
-        ]
-      }
-    },
     isButtonAddTraineeByIdDisabled: false,
     isButtonAddTraineeByIdLoading: false,
     isButtonRegisterTraineeDisabled: false,
@@ -236,13 +206,59 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getMeId: 'users/getMeId'
+      getMeId: 'users/getMeId',
+      getClubsForSelect: 'clubs/getClubsForSelect'
     }),
     traineeRegistrationSexSwitchLabel() {
       return this.$t(`trainees.registration.sex.${this.traineeRegistration.sex}`)
     },
     birthdateMax() {
       return (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)
+    },
+    traineeRegistration() {
+      return {
+        name: {
+          value: '',
+          rules: [
+            v => !!v || 'Name is required',
+            v => v.length <= 20 || 'Name must be less than 10 characters',
+          ]
+        },
+        surname: {
+          value: '',
+          rules: [
+            v => !!v || 'Surname is required',
+            v => v.length <= 20 || 'Surame must be less than 10 characters',
+          ]
+        },
+        birthdate: {
+          value: '',
+          rules: [
+            v => !!v || 'Birthdate is required'
+          ],
+          isMenuVisible: false,
+          activePicker: null
+        },
+        sex: {
+          value: '',
+          list: [
+            {
+              text: 'Male',
+              value: 'male'
+            },
+            {
+              text: 'Female',
+              value: 'female'
+            }
+          ],
+          rules: [
+            v => !!v || 'Sex is required'
+          ]
+        },
+        club: {
+          value: this.getClubsForSelect[0]?.value,
+        }
+      }
     },
     isModeAdd() {
       return this.mode === 'add'
@@ -256,6 +272,7 @@ export default {
       postUser: 'users/postUser',
       updateUser: 'users/updateUser',
       fetchTrainees: 'trainees/fetchTrainees',
+      fetchClubs: 'clubs/fetchClubs',
       updateUserTrainerId: 'users/updateUserTrainerId'
     }),
     async onAddTraineeById() {
@@ -314,6 +331,9 @@ export default {
     onDialogInput() {
       if (!this.isDialogVisible) this.resetForm()
     }
+  },
+  async created() {
+    await this.fetchClubs()
   }
 }
 </script>

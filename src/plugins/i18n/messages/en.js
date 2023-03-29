@@ -44,6 +44,9 @@ export default {
         male: 'Male',
         female: 'Female'
       },
+      club: {
+        label: 'Club'
+      },
       submitButton: {
         label: 'Register'
       }
