@@ -98,7 +98,6 @@ export default {
     isFormValid: {
       handler(val) {
         this.isButtonDisabled = !val
-        this.isButtonLoading = !val
       }
     },
   },
