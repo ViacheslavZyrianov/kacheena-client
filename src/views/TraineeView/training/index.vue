@@ -9,6 +9,7 @@
           <v-fade-transition
             :duration="200"
             leave-absolute
+            group
           >
             <template v-if="trainingsByDay.length">
               <v-card
@@ -41,6 +42,7 @@
             </template>
             <v-card
               v-else
+              key="emptyCard"
               height="172"
               outlined
             />
