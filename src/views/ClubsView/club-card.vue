@@ -3,12 +3,17 @@
     <div class="subtitle-1 mb-2">
       {{ title }}
     </div>
-    <div class="body-2 mb-2">
+    <v-chip
+      link
+      target="_blank"
+      :href="addressLink"
+      class="mb-4"
+    >
       <v-icon small>
         mdi-map-marker
       </v-icon>
       {{ address }}
-    </div>
+    </v-chip>
     <v-card
       v-if="notes"
       outlined
@@ -87,6 +92,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+
 export default {
   name: 'ClubsClubCard',
   data: () => ({
@@ -129,6 +135,9 @@ export default {
     }),
     isAnyLink() {
       return this.instagram || this.facebook || this.linkedin || this.site
+    },
+    addressLink() {
+      return `https://maps.google.com/?q=${this.address}`
     }
   },
   methods: {
