@@ -308,7 +308,8 @@ export default {
         id: this.id,
         name: `${this.traineeRegistration.name.value} ${this.traineeRegistration.surname.value}`,
         birthdate: this.traineeRegistration.birthdate.value,
-        sex: this.traineeRegistration.sex.value
+        sex: this.traineeRegistration.sex.value,
+        club: this.traineeRegistration.club.value
       }
 
       await this.updateUser(payload)
