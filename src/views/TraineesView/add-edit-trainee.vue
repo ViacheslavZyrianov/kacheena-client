@@ -272,7 +272,6 @@ export default {
       postUser: 'users/postUser',
       updateUser: 'users/updateUser',
       fetchTrainees: 'trainees/fetchTrainees',
-      fetchClubs: 'clubs/fetchClubs',
       updateUserTrainerId: 'users/updateUserTrainerId'
     }),
     async onAddTraineeById() {
@@ -289,7 +288,8 @@ export default {
         name: `${this.traineeRegistration.name.value} ${this.traineeRegistration.surname.value}`,
         birthdate: this.traineeRegistration.birthdate.value,
         sex: this.traineeRegistration.sex.value,
-        trainerId: this.getMeId
+        trainerId: this.getMeId,
+        club: this.traineeRegistration.club.value,
       }
 
       await this.postUser(payload)
@@ -331,9 +331,6 @@ export default {
     onDialogInput() {
       if (!this.isDialogVisible) this.resetForm()
     }
-  },
-  async created() {
-    await this.fetchClubs()
   }
 }
 </script>

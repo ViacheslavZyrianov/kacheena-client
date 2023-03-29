@@ -17,8 +17,12 @@ export const actions = {
 
     commit('SET_TRAINEES', data)
   },
-  async postSchedule(_, payload) {
-    await this.axios.post('schedule', payload)
+  async deleteTrainee(_, payload) {
+    await this.axios.delete('trainee', {
+      params: {
+        id: payload
+      }
+    })
   }
 }
 
