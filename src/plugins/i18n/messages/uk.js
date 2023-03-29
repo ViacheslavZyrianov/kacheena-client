@@ -57,7 +57,8 @@ export default {
       }
     },
     male: 'Чоловік',
-    female: 'Жінка'
+    female: 'Жінка',
+    clubless: 'Обезклублені'
   },
   trainee: {
     datepicker: {

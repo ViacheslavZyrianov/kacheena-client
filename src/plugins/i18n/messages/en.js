@@ -57,7 +57,8 @@ export default {
       }
     },
     male: 'Male',
-    female: 'Female'
+    female: 'Female',
+    clubless: 'Clubless'
   },
   trainee: {
     datepicker: {
