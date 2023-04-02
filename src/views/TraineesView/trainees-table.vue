@@ -31,10 +31,21 @@
         color="error"
         fab
         x-small
+        class="mr-2"
         @click="onDelete(_id)"
       >
         <v-icon>
           mdi-trash-can
+        </v-icon>
+      </v-btn>
+      <v-btn
+        :to="{ name: 'Trainee', params: { id: _id } }"
+        color="primary"
+        fab
+        x-small
+      >
+        <v-icon>
+          mdi-eye
         </v-icon>
       </v-btn>
     </template>
