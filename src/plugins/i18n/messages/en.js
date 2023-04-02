@@ -4,7 +4,8 @@ export default {
     save: 'Save',
     edit: 'Edit',
     delete: 'Delete',
-    kg: 'kg'
+    kg: 'kg',
+    actions: 'Actions'
   },
   auth: {
     label: 'Authenticate, pleps'
@@ -61,6 +62,11 @@ export default {
     clubless: 'Clubless'
   },
   trainee: {
+    name: 'Name',
+    sex: 'Sex',
+    birthdate: 'Birthdate',
+    club: 'Club',
+    groupedByClubs: 'Grouped by clubs',
     datepicker: {
       trainings: {
         label: 'Trainings'

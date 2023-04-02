@@ -38,7 +38,6 @@
 
 <script>
 import userCard from '@/components/UserCard/index.vue'
-import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'TraineesViewTrainee',
@@ -71,31 +70,12 @@ export default {
       default: ''
     }
   },
-  computed: {
-    ...mapGetters({
-      getTraineeById: 'trainees/getTraineeById'
-    })
-  },
   methods: {
-    ...mapActions({
-      fetchTrainees: 'trainees/fetchTrainees',
-      deleteTrainee: 'trainees/deleteTrainee'
-    }),
     onEdit(id) {
-      const { _id, name, birthdate, sex, club } = this.getTraineeById(id)
-      this.$parent.$refs.addEditTrainee.isDialogVisible = true
-      this.$parent.$refs.addEditTrainee.mode = 'edit'
-      this.$parent.$refs.addEditTrainee.addTraineeByTypeTabValue = 1
-      this.$parent.$refs.addEditTrainee.id = _id
-      this.$parent.$refs.addEditTrainee.traineeRegistration.name.value = name.split(' ')[0]
-      this.$parent.$refs.addEditTrainee.traineeRegistration.surname.value = name.split(' ')[1]
-      this.$parent.$refs.addEditTrainee.traineeRegistration.birthdate.value = birthdate
-      this.$parent.$refs.addEditTrainee.traineeRegistration.sex.value = sex
-      this.$parent.$refs.addEditTrainee.traineeRegistration.club.value = club
+      this.$emit('onEdit', id)
     },
-    async onDelete(id) {
-      await this.deleteTrainee(id)
-      await this.fetchTrainees()
+    onDelete(id) {
+      this.$emit('onDelete', id)
     }
   }
 }

@@ -4,7 +4,8 @@ export default {
     save: 'Зберегти',
     edit: 'Редагувати',
     delete: 'Видалити',
-    kg: 'кг'
+    kg: 'кг',
+    actions: 'Дії'
   },
   auth: {
     label: 'Авторизуйся, бубласка'
@@ -61,6 +62,11 @@ export default {
     clubless: 'Обезклублені'
   },
   trainee: {
+    name: 'Імʼя',
+    sex: 'Стать',
+    birthdate: 'Дата народження',
+    club: 'Клуб',
+    groupedByClubs: 'Групування по клубам',
     datepicker: {
       trainings: {
         label: 'Тренування'
