@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 import TheNavigation from '@/components/TheNavigation/index.vue'
 
@@ -33,6 +33,9 @@ export default {
       SET_IS_DARK_THEME: 'settings/SET_IS_DARK_THEME',
       SET_LOCALE: 'settings/SET_LOCALE'
     }),
+    ...mapActions({
+      fetchInit: 'init/fetchInit'
+    }),
     applyTheme() {
       const isSystemThemeDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
       const { kacheena_isDarkTheme } = localStorage
@@ -45,7 +48,8 @@ export default {
       this.SET_LOCALE(localStorage.kacheena_locale || 'en')
     }
   },
-  created() {
+  async created() {
+    await this.fetchInit()
     if (localStorage.kacheena_me) this.SET_ME(JSON.parse(localStorage.kacheena_me))
     this.applyTheme()
     this.applyLocale()
