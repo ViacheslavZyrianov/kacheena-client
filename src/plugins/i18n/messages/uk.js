@@ -8,7 +8,8 @@ export default {
     actions: 'Дії'
   },
   auth: {
-    label: 'Авторизуйся, бубласка'
+    label: 'Авторизуйся, бубласка',
+    button: 'Авторизація'
   },
   home: {
     label: 'Головна'

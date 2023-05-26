@@ -8,7 +8,8 @@ export default {
     actions: 'Actions'
   },
   auth: {
-    label: 'Authenticate, pleps'
+    label: 'Authenticate, pleps',
+    button: 'Authorize'
   },
   home: {
     label: 'Home'

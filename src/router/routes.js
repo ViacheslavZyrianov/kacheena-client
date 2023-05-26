@@ -5,6 +5,11 @@ export default [
     component: () => import( '../views/HomeView.vue')
   },
   {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: () => import( '../views/DashboardView/index.vue')
+  },
+  {
     path: '/auth',
     name: 'Auth',
     component: () => import('../views/AuthView.vue')
