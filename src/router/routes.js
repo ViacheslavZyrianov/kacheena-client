@@ -12,7 +12,7 @@ export default [
   {
     path: '/auth',
     name: 'Auth',
-    component: () => import('../views/AuthView.vue')
+    component: () => import('../views/AuthView/index.vue')
   },
   {
     path: '/settings',

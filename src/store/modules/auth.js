@@ -1,4 +1,24 @@
 export const actions = {
+  async postRegister(_, payload) {
+    try {
+      const { data } = await this.axios.post('/auth/register', payload)
+
+      console.log(data)
+    } catch (err) {
+      throw Error(err)
+      // err?.response?.status
+    }
+  },
+
+  async postLogin({ commit }, payload) {
+    try {
+      const { data } = await this.axios.post('/auth/login', payload)
+      commit('users/SET_ME', data, { root: true })
+    } catch(err) {
+      throw new Error(err)
+    }
+  },
+
   async googleAuthInit({ dispatch, commit }, code) {
     const { data: { id: googleId, name, picture } } = await this.axios.post('/oauth/google', {
       code

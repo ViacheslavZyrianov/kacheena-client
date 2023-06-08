@@ -1,10 +1,5 @@
 export default [
   {
-    title: 'home.label',
-    icon: 'mdi-home',
-    to: '/'
-  },
-  {
     title: 'trainees.label',
     icon: 'mdi-account-group',
     to: '/trainees'

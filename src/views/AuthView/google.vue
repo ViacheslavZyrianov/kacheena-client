@@ -1,34 +1,22 @@
 <template>
-  <div class="page d-flex align-center justify-center">
-    <v-card
-      width="300"
-      class="d-flex align-center flex-column pa-4"
-    >
-      <div class="text-h6 mb-2">
-        {{ $t('auth.label') }}
-      </div>
-      <v-btn
-        :href="googleAuthUrl"
-        color="primary"
-      >
-        <v-icon left>
-          mdi-google
-        </v-icon>
-        google
-      </v-btn>
-    </v-card>
-  </div>
+  <v-btn
+    :href="googleAuthUrl"
+    color="primary"
+    block
+  >
+  <v-icon left>
+    mdi-google
+  </v-icon>
+    google
+  </v-btn>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
-  name: 'AuthView',
+  name: 'AuthGoogle',
   computed: {
-    ...mapGetters({
-      getMe: 'users/getMe'
-    }),
     googleAuthUrl() {
       const url = 'https://accounts.google.com/o/oauth2/v2/auth'
       const options = {

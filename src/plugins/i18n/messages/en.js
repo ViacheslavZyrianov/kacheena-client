@@ -7,9 +7,44 @@ export default {
     kg: 'kg',
     actions: 'Actions'
   },
-  auth: {
-    label: 'Authenticate, pleps',
-    button: 'Authorize'
+  registration: {
+    label: 'Registration',
+    fullName: {
+      label: 'Enter your full name',
+      placeholder: 'John Doe',
+      errors: {
+        1: 'Min 2 characters'
+      }
+    },
+    login: {
+      label: 'Enter your login',
+      placeholder: 'JohnDoe',
+      errors: {
+        1: 'Min 4 characters'
+      }
+    },
+    password: {
+      label: 'Enter you password',
+      errors: {
+        1: 'Password must contain 8 characters, one uppercase letter, one lowercase letter and one number'
+      }
+    },
+    errors: {
+      409: 'Login already exists, choose another one'
+    },
+    or: 'or',
+    button: 'Register'
+  },
+  login: {
+    label: 'Login',
+    login: {
+      label: 'Enter your login',
+    },
+    password: {
+      label: 'Enter your password',
+    },
+    or: 'or',
+    button: 'Log in'
   },
   home: {
     label: 'Home'
