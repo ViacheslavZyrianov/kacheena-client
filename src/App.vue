@@ -8,6 +8,8 @@
       >
         <router-view/>
       </v-fade-transition>
+    
+      <the-locale-selector v-if="isLocaleSelectorVisible" />
     </v-main>
   </v-app>
 </template>
@@ -16,16 +18,21 @@
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 import TheNavigation from '@/components/TheNavigation/index.vue'
+import TheLocaleSelector from '@/components/TheLocaleSelector/index.vue'
 
 export default {
   name: 'App',
   components: {
-    TheNavigation
+    TheNavigation,
+    TheLocaleSelector
   },
   computed: {
     ...mapGetters({
       getMe: 'users/getMe'
-    })
+    }),
+    isLocaleSelectorVisible() {
+      return ['Home', 'Auth'].includes(this.$route.name)
+    }
   },
   methods: {
     ...mapMutations({
