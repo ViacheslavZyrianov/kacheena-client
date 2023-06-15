@@ -1,4 +1,4 @@
-re<template>
+<template>
   <div class="page d-flex align-center justify-center">
     <v-col>
       <h1 class="text-h1 font-weight-black text-uppercase text-center">Kacheena</h1>
