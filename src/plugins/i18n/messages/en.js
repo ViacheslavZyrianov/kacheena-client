@@ -7,6 +7,11 @@ export default {
     kg: 'kg',
     actions: 'Actions'
   },
+  home: {
+    header: 'KACHEENA',
+    subheader: 'We kach, you eena',
+    authButton: 'Authorize'
+  },
   registration: {
     label: 'Registration',
     fullName: {
@@ -45,9 +50,6 @@ export default {
     },
     or: 'or',
     button: 'Log in'
-  },
-  home: {
-    label: 'Home'
   },
   trainees: {
     label: 'Trainees',

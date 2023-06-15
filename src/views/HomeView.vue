@@ -8,7 +8,7 @@ re<template>
           :to="{ name: 'Auth' }"
           color="primary"
         >
-          {{ $t('auth.button') }}
+          {{ $t('home.authButton') }}
         </v-btn>
       </v-row>
     </v-col>

@@ -7,6 +7,11 @@ export default {
     kg: 'кг',
     actions: 'Дії'
   },
+  home: {
+    header: 'KACHEENA',
+    subheader: 'We kach, you eena',
+    authButton: 'Авторизація'
+  },
   registration: {
     label: 'Реєстрація',
     fullName: {
@@ -45,9 +50,6 @@ export default {
     },
     or: 'або',
     button: 'Увійти'
-  },
-  home: {
-    label: 'Головна'
   },
   trainees: {
     label: 'Трейні',
