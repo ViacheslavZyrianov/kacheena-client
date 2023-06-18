@@ -22,7 +22,7 @@ export default {
       }
     },
     login: {
-      label: 'введіть свій логін',
+      label: 'Введіть свій логін',
       placeholder: 'МурМурняу',
       errors: {
         1: 'Мінімум 4 символи'
