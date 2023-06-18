@@ -46,17 +46,18 @@
         :loading="isSubmitBtnLoading"
         color="primary"
         block
-        class="mb-4"
         @click="onSubmit"
       >
         {{ $t('registration.button') }}
       </v-btn>
-      <div class="d-flex align-center mb-4">
-        <v-divider />
-        <div class="overline mx-4">{{ $t('registration.or') }}</div>
-        <v-divider />
-      </div>
-      <google-auth />
+      <template v-if="isGoogleAuthVisible">
+        <div class="d-flex align-center my-4">
+          <v-divider />
+          <div class="overline mx-4">{{ $t('registration.or') }}</div>
+          <v-divider />
+        </div>
+        <google-auth />
+      </template>
     </v-form>
   </v-card>
 </template>
@@ -78,6 +79,7 @@ export default {
   },
   data() {
     return {
+      isGoogleAuthVisible: false,
       isSubmitBtnDisabled: true,
       isSubmitBtnLoading: false,
       isFormValid: false,
