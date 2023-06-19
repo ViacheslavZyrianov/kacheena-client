@@ -1,23 +1,24 @@
 <template>
   <v-avatar
+    v-if="picture"
     :size="size"
     :color="color"
   >
     <img
-      v-if="picture"
       :src="picture"
-      :alt="avatarPlaceholder(name)"
+      :alt="alt"
     >
-    <span
-      v-else
-      class="white--text text-h5"
-    >
-      {{ avatarPlaceholder(name) }}
-    </span>
   </v-avatar>
+  <div
+    v-else
+    class="text-h4"
+    v-html="avatarEmoji"
+  />
 </template>
 
 <script>
+import generate from './emojis.js'
+
 export default {
   name: 'SAvatar',
   props: {
@@ -38,9 +39,12 @@ export default {
       default: 88
     }
   },
-  methods: {
-    avatarPlaceholder(name) {
-      return `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`
+  computed: {
+    alt() {
+      return `${this.name.split(' ')[0][0]}${this.name.split(' ')[1][0]}`
+    },
+    avatarEmoji() {
+      return `&#x${generate(this.name)}`
     }
   }
 }

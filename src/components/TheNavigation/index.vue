@@ -9,20 +9,17 @@
       class="pa-2"
       no-gutters
     >
-      <v-col cols="4">
-        <v-avatar
-          color="primary"
-        >
-          <img
-            :src="getMe.picture"
-            :alt="getMe.name"
-          >
-        </v-avatar>
+      <v-col cols="3">
+        <s-avatar
+          :picture="getMe.picture"
+          :name="getMe.name"
+          :size="48"
+        />
       </v-col>
       <v-col
         class="body-1 text-truncate"
       >
-        {{ getMe.name }}
+        {{ formattedName }}
       </v-col>
     </v-row>
 
@@ -52,15 +49,25 @@ import { mapGetters } from 'vuex'
 
 import navigationList from './navigationList';
 
+import SAvatar from '@/components/SAvatar/index.vue'
+
 export default {
   name: 'TheNavigation',
   data: () => ({
     navigationList
   }),
+  components: {
+    SAvatar
+  },
   computed: {
     ...mapGetters({
       getMe: 'users/getMe'
-    })
+    }),
+    formattedName() {
+      const [name, surname] = this.getMe.name.split(' ')
+
+      return surname && surname.length > 1 ? `${name} ${surname[0]}.` : name
+    }
   }
 }
 </script>
