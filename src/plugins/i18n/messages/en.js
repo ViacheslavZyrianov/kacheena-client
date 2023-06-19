@@ -34,6 +34,12 @@ export default {
         1: 'Password must contain 8 characters, one uppercase letter, one lowercase letter and one number'
       }
     },
+    passwordRepeat: {
+      label: 'Repeat password',
+      errors: {
+        1: 'Passwords must be identical'
+      }
+    },
     errors: {
       409: 'Login already exists, choose another one'
     },
