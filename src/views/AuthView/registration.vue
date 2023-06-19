@@ -2,7 +2,10 @@
   <v-card
     class="pa-4"
   >
-    <v-form v-model="isFormValid">
+    <v-form
+      v-model="isFormValid"
+      ref="form"
+    >
       <v-text-field
         v-model="form.fullName.value"
         :rules="form.fullName.rules"
@@ -32,15 +35,18 @@
         :append-icon="passwordIcon"
         @click:append="togglePasswordVisibility"
       />
-      <!-- <v-text-field
+      <v-text-field
         v-model="form.passwordRepeat.value"
         :rules="form.passwordRepeat.rules"
+        ref="passwordRepeat"
         filled
         dense
         block
-        type="password"
+        :type="passwordRepeatFieldType"
         :label="$t('registration.passwordRepeat.label')"
-      /> -->
+        :append-icon="passwordRepeatIcon"
+        @click:append="togglePasswordRepeatVisibility"
+      />
       <v-btn
         :disabled="isSubmitBtnDisabled"
         :loading="isSubmitBtnLoading"
@@ -75,6 +81,9 @@ export default {
   watch: {
     isFormValid() {
       this.isSubmitBtnDisabled = !this.isFormValid
+    },
+    'form.password.value'() {
+      this.$refs.passwordRepeat.validate();
     }
   },
   data() {
@@ -84,7 +93,9 @@ export default {
       isSubmitBtnLoading: false,
       isFormValid: false,
       passwordFieldType: 'password',
+      passwordRepeatFieldType: 'password',
       passwordIcon: 'mdi-eye-outline',
+      passwordRepeatIcon: 'mdi-eye-outline',
       form: {
         fullName: {
           value: '',
@@ -102,21 +113,14 @@ export default {
           value: '',
           rules: [
             v => /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/.test(v) || this.$t('registration.password.errors.1')
-            // value => {
-            //   console.log('passwordRepeat', this.form.passwordRepeat.value)
-            //   return this.form.passwordRepeat.value === value || 'Passwords must be identical'
-            // }
           ]
         },
-        // passwordRepeat: {
-        //   value: '',
-        //   rules: [
-        //     v => {
-        //       console.log('password', this.form.password.v)
-        //       return this.form.password.value === v || 'Passwords must be identical'
-        //     }
-        //   ]
-        // }
+        passwordRepeat: {
+          value: '',
+          rules: [
+            v => this.form.password.value === v || this.$t('registration.passwordRepeat.errors.1')
+          ]
+        }
       }
     }
   },
@@ -145,6 +149,16 @@ export default {
       else {
         this.passwordFieldType = 'password'
         this.passwordIcon = 'mdi-eye-outline'
+      }
+    },
+    togglePasswordRepeatVisibility() {
+      if (this.passwordRepeatFieldType === 'password') {
+        this.passwordRepeatFieldType = 'text'
+        this.passwordRepeatIcon = 'mdi-eye-off-outline'
+      }
+      else {
+        this.passwordRepeatFieldType = 'password'
+        this.passwordRepeatIcon = 'mdi-eye-outline'
       }
     }
   }
