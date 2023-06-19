@@ -1,9 +1,7 @@
 export const actions = {
   async postRegister(_, payload) {
     try {
-      const { data } = await this.axios.post('/auth/register', payload)
-
-      console.log(data)
+      await this.axios.post('/auth/register', payload)
     } catch (err) {
       throw Error(err)
       // err?.response?.status

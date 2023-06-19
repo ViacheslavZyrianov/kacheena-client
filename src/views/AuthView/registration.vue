@@ -79,8 +79,11 @@ export default {
     GoogleAuth
   },
   watch: {
-    isFormValid() {
-      this.isSubmitBtnDisabled = !this.isFormValid
+    isFormValid(val) {
+      this.isSubmitBtnDisabled = !val
+    },
+    'form.fullName.value'(val) {
+      this.form.login.value = val.toLowerCase().replaceAll(' ', '').trim()
     },
     'form.password.value'() {
       this.$refs.passwordRepeat.validate();
@@ -129,17 +132,17 @@ export default {
       postRegister: 'auth/postRegister'
     }),
     async onSubmit() {
-      // this.isSubmitBtnDisabled = true
-      // this.isSubmitBtnLoading = true
+      this.isSubmitBtnDisabled = true
+      this.isSubmitBtnLoading = true
 
       await this.postRegister({
         name: this.form.fullName.value,
         login: this.form.login.value,
         password: this.form.password.value
       })
-
-      // this.isSubmitBtnDisabled = false
-      // this.isSubmitBtnLoading = false
+      
+      this.isSubmitBtnDisabled = false
+      this.isSubmitBtnLoading = false
     },
     togglePasswordVisibility() {
       if (this.passwordFieldType === 'password') {
