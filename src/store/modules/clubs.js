@@ -4,8 +4,8 @@ export const state = () => ({
 
 export const getters = {
   getClubs: ({ clubs }) => clubs,
-  getClubsForSelect: ({ clubs }) => clubs.map(({ _id, title }) => ({ text: title, value: _id })),
-  getClubById: ({ clubs }) => id => clubs.find(({ _id }) => _id === id)
+  getClubsForSelect: ({ clubs }) => clubs.length && clubs.map(({ _id, title }) => ({ text: title, value: _id })),
+  getClubById: ({ clubs }) => id => clubs.length && clubs.find(({ _id }) => _id === id)
 }
 
 export const actions = {
