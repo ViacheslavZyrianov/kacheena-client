@@ -12,9 +12,9 @@ const router = new VueRouter({
 
 router.beforeEach(({ name }, _, next) => {
   const isUserLoggedIn = !!localStorage.kacheena_me
-  if (isUserLoggedIn && name === 'Auth') router.push('/dashboard')
+  if (isUserLoggedIn && (name === 'Home' || name === 'Auth')) router.push('/dashboard')
   else if (!isUserLoggedIn) {
-    if (name === "Home") next();
+    if (name === 'Home') next()
     else if (name !== 'Auth') router.push('/auth')
   }
   next()

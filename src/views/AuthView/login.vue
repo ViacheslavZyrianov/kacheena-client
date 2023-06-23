@@ -2,28 +2,34 @@
   <v-card
     class="pa-4"
   >
-    <v-text-field
-      v-model="login"
-      filled
-      dense
-      block
-      :label="$t('login.login.label')"
-    />
-    <v-text-field
-      v-model="password"
-      filled
-      dense
-      block
-      type="password"
-      :label="$t('login.password.label')"
-    />
-    <v-btn
-      color="primary"
-      block
-      @click="onSubmit"
+    <v-form
+      @submit="onSubmit"
     >
-      {{ $t("login.button") }}
-    </v-btn>
+      <v-text-field
+        v-model="login"
+        filled
+        dense
+        block
+        :label="$t('login.login.label')"
+      />
+      <v-text-field
+        v-model="password"
+        filled
+        dense
+        block
+        type="password"
+        :label="$t('login.password.label')"
+      />
+      <v-btn
+        :disabled="isSubmitBtnDisabled"
+        :loading="isSubmitBtnLoading"
+        color="primary"
+        block
+        @click="onSubmit"
+      >
+        {{ $t("login.button") }}
+      </v-btn>
+    </v-form>
     <template v-if="isGoogleAuthVisible">
       <div class="d-flex align-center my-4">
         <v-divider />
@@ -48,19 +54,27 @@ export default {
   data: () => ({
     login: '',
     password: '',
-    isGoogleAuthVisible: false
+    isGoogleAuthVisible: false,
+    isSubmitBtnDisabled: false,
+    isSubmitBtnLoading: false
   }),
   methods: {
     ...mapActions({
       postLogin: 'auth/postLogin'
     }),
     async onSubmit() {
-        await this.postLogin({
-          login: this.login,
-          password: this.password
-        })
+      this.isSubmitBtnDisabled = true
+      this.isSubmitBtnLoading = true
 
-        this.$router.push('trainees')
+      await this.postLogin({
+        login: this.login,
+        password: this.password
+      })
+      
+      this.isSubmitBtnDisabled = false
+      this.isSubmitBtnLoading = false
+
+      this.$router.push('dashboard')
     }
   }
 }

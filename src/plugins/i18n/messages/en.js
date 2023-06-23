@@ -12,6 +12,9 @@ export default {
     subheader: 'We kach, you eena',
     authButton: 'Authorize'
   },
+  dashboard: {
+    label: 'Dashboard'
+  },
   registration: {
     label: 'Registration',
     fullName: {

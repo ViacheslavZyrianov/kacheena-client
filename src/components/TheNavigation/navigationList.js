@@ -1,5 +1,10 @@
 export default [
   {
+    title: 'dashboard.label',
+    icon: 'mdi-view-dashboard',
+    to: '/dashboard'
+  },
+  {
     title: 'trainees.label',
     icon: 'mdi-account-group',
     to: '/trainees'
