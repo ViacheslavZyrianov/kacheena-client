@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 
 import GoogleAuth from './google.vue'
 
@@ -62,19 +62,26 @@ export default {
     ...mapActions({
       postLogin: 'auth/postLogin'
     }),
+    ...mapMutations({
+      SET_ERROR: 'snackbar/SET_ERROR'
+    }),
     async onSubmit() {
       this.isSubmitBtnDisabled = true
       this.isSubmitBtnLoading = true
 
-      await this.postLogin({
-        login: this.login,
-        password: this.password
-      })
-      
-      this.isSubmitBtnDisabled = false
-      this.isSubmitBtnLoading = false
-
-      this.$router.push('dashboard')
+      try {
+        await this.postLogin({
+          login: this.login,
+          password: this.password
+        })
+        
+        this.$router.push('dashboard')
+      } catch (errCode) {
+        this.SET_ERROR(this.$t(`login.errors.${errCode}`))
+      } finally {
+        this.isSubmitBtnDisabled = false
+        this.isSubmitBtnLoading = false
+      }
     }
   }
 }
