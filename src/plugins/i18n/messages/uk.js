@@ -64,7 +64,7 @@ export default {
       }
     },
     errors: {
-      401: 'Wrong login or password'
+      401: 'Непральний логін чи пароль'
     },
     or: 'або',
     button: 'Увійти'
