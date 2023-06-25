@@ -4,7 +4,6 @@ export const actions = {
       await this.axios.post('/auth/register', payload)
     } catch (err) {
       throw Error(err)
-      // err?.response?.status
     }
   },
 
@@ -13,7 +12,7 @@ export const actions = {
       const { data } = await this.axios.post('/auth/login', payload)
       commit('users/SET_ME', data, { root: true })
     } catch(err) {
-      throw new Error(err)
+      throw err?.response?.status
     }
   },
 

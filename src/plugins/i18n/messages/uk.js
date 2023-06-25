@@ -57,6 +57,9 @@ export default {
     password: {
       label: 'Введіть пароль',
     },
+    errors: {
+      401: 'Wrong login or password'
+    },
     or: 'або',
     button: 'Увійти'
   },

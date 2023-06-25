@@ -11,6 +11,25 @@
     
       <the-locale-selector v-if="isLocaleSelectorVisible" />
     </v-main>
+    <v-snackbar
+      v-model="getSnackbar.isVisible"
+      :color="getSnackbar.color"
+      :timeout="getSnackbar.timeout"
+    >
+      <v-layout align-center pr-4>
+        <v-icon
+          v-if="getSnackbar.icon"
+          class="pr-3"
+          dark
+          large
+        >
+          {{ getSnackbar.icon }}
+        </v-icon>
+        <v-layout column>
+          <div>{{ getSnackbar.content }}</div>
+        </v-layout>
+      </v-layout>
+    </v-snackbar>
   </v-app>
 </template>
 
@@ -28,7 +47,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getMe: 'users/getMe'
+      getMe: 'users/getMe',
+      getSnackbar: 'snackbar/getSnackbar'
     }),
     isLocaleSelectorVisible() {
       return ['Home', 'Auth'].includes(this.$route.name)
