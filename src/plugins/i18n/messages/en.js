@@ -53,9 +53,15 @@ export default {
     label: 'Login',
     login: {
       label: 'Enter your login',
+      errors: {
+        length: 'Login must me minimum 4 characters long'
+      }
     },
     password: {
       label: 'Enter your password',
+      errors: {
+        length: 'Password must me minimum 8 characters long'
+      }
     },
     errors: {
       401: 'Wrong login or password'

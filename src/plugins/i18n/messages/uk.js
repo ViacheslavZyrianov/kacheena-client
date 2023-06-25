@@ -53,9 +53,15 @@ export default {
     label: 'Залогінитись',
     login: {
       label: 'Введіть логін',
+      errors: {
+        length: 'Логін має бути мінімум 4 символи'
+      }
     },
     password: {
       label: 'Введіть пароль',
+      errors: {
+        length: 'Пароль має бути мінімум 8 символів'
+      }
     },
     errors: {
       401: 'Wrong login or password'

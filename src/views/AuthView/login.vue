@@ -3,17 +3,20 @@
     class="pa-4"
   >
     <v-form
+      v-model="isFormValid"
       @submit="onSubmit"
     >
       <v-text-field
-        v-model="login"
+        v-model="form.login.value"
+        :rules="form.login.rules"
         filled
         dense
         block
         :label="$t('login.login.label')"
       />
       <v-text-field
-        v-model="password"
+        v-model="form.password.value"
+        :rules="form.password.rules"
         filled
         dense
         block
@@ -51,13 +54,33 @@ export default {
   components: {
     GoogleAuth
   },
-  data: () => ({
-    login: '',
-    password: '',
-    isGoogleAuthVisible: false,
-    isSubmitBtnDisabled: false,
-    isSubmitBtnLoading: false
-  }),
+  watch: {
+    isFormValid(val) {
+      this.isSubmitBtnDisabled = !val
+    }
+  },
+  data () {
+    return {
+      isFormValid: false,
+      form: {
+        login: {
+          value: '',
+          rules: [
+            v => v.length >= 4 || this.$t('login.login.errors.length')
+          ]
+        },
+        password: {
+          value: '',
+          rules: [
+            v => v.length >= 8 || this.$t('login.password.errors.length')
+          ]
+        }
+      },
+      isGoogleAuthVisible: false,
+      isSubmitBtnDisabled: true,
+      isSubmitBtnLoading: false
+    }
+  },
   methods: {
     ...mapActions({
       postLogin: 'auth/postLogin'
@@ -71,8 +94,8 @@ export default {
 
       try {
         await this.postLogin({
-          login: this.login,
-          password: this.password
+          login: this.form.login.value,
+          password: this.form.password.value
         })
         
         this.$router.push('dashboard')
