@@ -5,7 +5,7 @@
     >
       <v-tabs
         v-model="authTabValue"
-        fixed-tabs
+        grow
       >
         <v-tab>
         {{ $t('login.label') }}
