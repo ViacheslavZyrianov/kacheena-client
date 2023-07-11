@@ -41,11 +41,27 @@
         </v-list-item-content>
       </v-list-item>
     </v-list>
+    <template v-slot:append>
+      <div class="pa-2">
+        <v-btn
+          block
+          color="error"
+          @click="onLogout"
+        >
+          <v-icon
+            left
+          >
+            mdi-exit-run
+          </v-icon>
+          {{ $t('settings.logout.button') }}
+        </v-btn>
+      </div>
+    </template>
   </v-navigation-drawer>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 import navigationList from './navigationList';
 
@@ -67,6 +83,15 @@ export default {
       const [name, surname] = this.getMe.name.split(' ')
 
       return surname && surname.length > 1 ? `${name} ${surname[0]}.` : name
+    }
+  },
+  methods: {
+    ...mapMutations({
+      SET_ME: 'users/SET_ME'
+    }),
+    onLogout() {
+      this.SET_ME(null)
+      this.$router.push('auth')
     }
   }
 }
