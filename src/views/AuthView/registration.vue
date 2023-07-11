@@ -129,10 +129,12 @@ export default {
   },
   methods: {
     ...mapActions({
-      postRegister: 'auth/postRegister'
+      postRegister: 'auth/postRegister',
+      postLogin: 'auth/postLogin'
     }),
     ...mapMutations({
-      SET_ERROR: 'snackbar/SET_ERROR'
+      SET_ERROR: 'snackbar/SET_ERROR',
+      SET_INFO: 'snackbar/SET_INFO'
     }),
     async onSubmit() {
       this.isSubmitBtnDisabled = true
@@ -144,12 +146,25 @@ export default {
           login: this.form.login.value,
           password: this.form.password.value
         })
+
+        this.SET_INFO(this.$t('registration.success'))
+
+        setTimeout(async () => {
+          await this.loginUserAfterRegistration()
+        }, 2000)
+
       } catch (errCode) {
         this.SET_ERROR(this.$t(`registration.errors.${errCode}`))
+        this.isSubmitBtnDisabled = false
+        this.isSubmitBtnLoading = false
       }
-      
-      this.isSubmitBtnDisabled = false
-      this.isSubmitBtnLoading = false
+    },
+    async loginUserAfterRegistration() {
+      await this.postLogin({
+        login: this.form.login.value,
+        password: this.form.password.value
+      })
+      this.$router.push('dashboard')
     },
     togglePasswordVisibility() {
       if (this.passwordFieldType === 'password') {
