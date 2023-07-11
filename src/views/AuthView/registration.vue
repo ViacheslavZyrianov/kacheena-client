@@ -69,7 +69,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 
 import GoogleAuth from './google.vue'
 
@@ -131,15 +131,22 @@ export default {
     ...mapActions({
       postRegister: 'auth/postRegister'
     }),
+    ...mapMutations({
+      SET_ERROR: 'snackbar/SET_ERROR'
+    }),
     async onSubmit() {
       this.isSubmitBtnDisabled = true
       this.isSubmitBtnLoading = true
 
-      await this.postRegister({
-        name: this.form.fullName.value,
-        login: this.form.login.value,
-        password: this.form.password.value
-      })
+      try {
+        await this.postRegister({
+          name: this.form.fullName.value,
+          login: this.form.login.value,
+          password: this.form.password.value
+        })
+      } catch (errCode) {
+        this.SET_ERROR(this.$t(`registration.errors.${errCode}`))
+      }
       
       this.isSubmitBtnDisabled = false
       this.isSubmitBtnLoading = false

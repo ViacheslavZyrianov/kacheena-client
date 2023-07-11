@@ -3,7 +3,7 @@ export const actions = {
     try {
       await this.axios.post('/auth/register', payload)
     } catch (err) {
-      throw Error(err)
+      throw err?.response?.status
     }
   },
 
