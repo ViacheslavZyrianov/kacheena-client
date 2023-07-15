@@ -5,32 +5,29 @@
     :mini-variant="isMini"
   >
     <v-list class="pa-0">
-      <v-list-item class="d-flex align-center">
-        <template v-if="!isMini">
-          <v-list-item-icon class="mr-4">
-            <s-avatar
-              :picture="getMe.picture"
-              :name="getMe.name"
-              :size="24"
-            />
-          </v-list-item-icon>
+      <v-list-item
+        link
+        class="d-flex align-center py-1"
+        @click="onNavigationDrawerToggle"
+      >
+        <v-list-item-icon class="mr-4">
+          <v-icon>
+            {{ mdiMenuToggleIcon }}
+          </v-icon>
+        </v-list-item-icon>
+        <v-list-item-title class="d-flex align-center justify-start">
+          <s-avatar
+            :picture="getMe.picture"
+            :name="getMe.name"
+            :size="24"
+            class="mr-2"
+          />
           <v-list-item-title>
             {{ formattedName }}
           </v-list-item-title>
-        </template>
-        <v-list-item-icon>
-          <v-btn
-            small
-            icon
-            class="ml-n1"
-            @click="onNavigationDrawerToggle"
-          >
-            <v-icon>
-              {{ mdiMenuToggleIcon }}
-            </v-icon>
-          </v-btn>
-        </v-list-item-icon>
+        </v-list-item-title>
       </v-list-item>
+      <v-divider />
       <v-list-item
         v-for="{ title, icon, to } in navigationList"
         :key="title"
@@ -89,7 +86,7 @@ export default {
   name: 'TheNavigation',
   data: () => ({
     navigationList,
-    isMini: true
+    isMini: false
   }),
   components: {
     SAvatar
