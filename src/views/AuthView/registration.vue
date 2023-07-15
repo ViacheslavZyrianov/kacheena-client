@@ -56,7 +56,7 @@
       >
         {{ $t('registration.button') }}
       </v-btn>
-      <template v-if="isGoogleAuthVisible">
+      <template v-if="_isGoogleAuthEnabled">
         <div class="d-flex align-center my-4">
           <v-divider />
           <div class="overline mx-4">{{ $t('registration.or') }}</div>
@@ -69,7 +69,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
 
 import GoogleAuth from './google.vue'
 
@@ -91,7 +91,6 @@ export default {
   },
   data() {
     return {
-      isGoogleAuthVisible: false,
       isSubmitBtnDisabled: true,
       isSubmitBtnLoading: false,
       isFormValid: false,
@@ -126,6 +125,11 @@ export default {
         }
       }
     }
+  },
+  computed: {
+    ...mapState({
+      _isGoogleAuthEnabled: '_system/_isGoogleAuthEnabled'
+    })
   },
   methods: {
     ...mapActions({

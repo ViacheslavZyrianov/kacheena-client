@@ -17,7 +17,7 @@
 
     <v-card>
       <v-tabs
-        v-if="isModeAdd"
+        v-if="isModeAdd && _isGoogleAuthEnabled"
         v-model="addTraineeByTypeTabValue"
         fixed-tabs
       >
@@ -166,7 +166,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 
 import formatDate from '@/mixins/formatDate'
 
@@ -202,9 +202,15 @@ export default {
     },
     isRegisterTraineeFormValid(val) {
       this.isButtonRegisterTraineeDisabled = !val
+    },
+    isDialogVisible() {
+      this.addTraineeByTypeTabValue = this._isGoogleAuthEnabled ? 0 : 1
     }
   },
   computed: {
+    ...mapState({
+      _isGoogleAuthEnabled: '_system/_isGoogleAuthEnabled'
+    }),
     ...mapGetters({
       getMeId: 'users/getMeId',
       getClubsForSelect: 'clubs/getClubsForSelect'
