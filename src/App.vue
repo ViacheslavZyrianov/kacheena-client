@@ -1,6 +1,14 @@
 <template>
   <v-app id="app">
     <the-navigation v-if="getMe" />
+    <v-app-bar
+      app
+      elevation="0"
+    >
+      <v-toolbar-title>{{ toolbarTitle }}</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <portal-target name="toolbar-content" />
+    </v-app-bar>
     <v-main>
       <v-fade-transition
         :duration="200"
@@ -52,6 +60,9 @@ export default {
     }),
     isLocaleSelectorVisible() {
       return ['Home', 'Auth'].includes(this.$route.name)
+    },
+    toolbarTitle() {
+      return this.$t(`${this.$route?.name?.toLowerCase()}.label`)
     }
   },
   methods: {

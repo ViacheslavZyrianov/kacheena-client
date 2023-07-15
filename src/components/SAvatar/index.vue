@@ -11,7 +11,7 @@
   </v-avatar>
   <div
     v-else
-    class="text-h4"
+    :style="avatarEmojiStyle"
     v-html="avatarEmoji"
   />
 </template>
@@ -45,6 +45,9 @@ export default {
     },
     avatarEmoji() {
       return `&#x${generate(this.name)}`
+    },
+    avatarEmojiStyle() {
+      return `font-size: ${this.size}px; line-height: 1.1666666667em;`
     }
   }
 }

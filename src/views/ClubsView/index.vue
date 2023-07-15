@@ -1,14 +1,15 @@
 <template>
   <div class="page">
-    <v-row>
-      <v-spacer />
-      <v-col
-        lg="3"
-        md="3"
-      >
-        <add-edit-club ref="addEditClub" />
-      </v-col>
-    </v-row>
+    <portal to="toolbar-content">
+      <v-row>
+        <v-col
+          lg="3"
+          md="3"
+        >
+          <add-edit-club ref="addEditClub" />
+        </v-col>
+      </v-row>
+    </portal>
     <v-row>
       <v-col
         v-for="{ _id, address, title, notes, instagram, facebook, site } in getClubs"

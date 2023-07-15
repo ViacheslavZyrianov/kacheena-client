@@ -22,6 +22,7 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "path": "^0.12.7",
+    "portal-vue": "^2.1.7",
     "register-service-worker": "^1.7.2",
     "roboto-fontface": "*",
     "serve-static": "^1.15.0",

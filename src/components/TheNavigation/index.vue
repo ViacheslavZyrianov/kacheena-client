@@ -2,28 +2,35 @@
   <v-navigation-drawer
     app
     permanent
-    width="200px"
+    :mini-variant="isMini"
   >
-    <v-row
-      align="center"
-      class="pa-2"
-      no-gutters
-    >
-      <v-col cols="3">
-        <s-avatar
-          :picture="getMe.picture"
-          :name="getMe.name"
-          :size="48"
-        />
-      </v-col>
-      <v-col
-        class="body-1 text-truncate"
-      >
-        {{ formattedName }}
-      </v-col>
-    </v-row>
-
     <v-list class="pa-0">
+      <v-list-item class="d-flex align-center">
+        <template v-if="!isMini">
+          <v-list-item-icon class="mr-4">
+            <s-avatar
+              :picture="getMe.picture"
+              :name="getMe.name"
+              :size="24"
+            />
+          </v-list-item-icon>
+          <v-list-item-title>
+            {{ formattedName }}
+          </v-list-item-title>
+        </template>
+        <v-list-item-icon>
+          <v-btn
+            small
+            icon
+            class="ml-n1"
+            @click="onNavigationDrawerToggle"
+          >
+            <v-icon>
+              {{ mdiMenuToggleIcon }}
+            </v-icon>
+          </v-btn>
+        </v-list-item-icon>
+      </v-list-item>
       <v-list-item
         v-for="{ title, icon, to } in navigationList"
         :key="title"
@@ -42,15 +49,26 @@
       </v-list-item>
     </v-list>
     <template v-slot:append>
-      <div class="pa-2">
+      <div class="pa-3">
         <v-btn
+          v-if="isMini"
+          fab
+          tile
+          x-small
+          color="error"
+          @click="onLogout"
+        >
+          <v-icon small>
+            mdi-exit-run
+          </v-icon>
+        </v-btn>
+        <v-btn
+          v-else
           block
           color="error"
           @click="onLogout"
         >
-          <v-icon
-            left
-          >
+          <v-icon left>
             mdi-exit-run
           </v-icon>
           {{ $t('settings.logout.button') }}
@@ -70,7 +88,8 @@ import SAvatar from '@/components/SAvatar/index.vue'
 export default {
   name: 'TheNavigation',
   data: () => ({
-    navigationList
+    navigationList,
+    isMini: true
   }),
   components: {
     SAvatar
@@ -83,6 +102,9 @@ export default {
       const [name, surname] = this.getMe.name.split(' ')
 
       return surname && surname.length > 1 ? `${name} ${surname[0]}.` : name
+    },
+    mdiMenuToggleIcon() {
+      return this.isMini ? 'mdi-menu-open mdi-rotate-180' : 'mdi-menu-open'
     }
   },
   methods: {
@@ -92,6 +114,9 @@ export default {
     onLogout() {
       this.SET_ME(null)
       this.$router.push('auth')
+    },
+    onNavigationDrawerToggle() {
+      return this.isMini = !this.isMini
     }
   }
 }

@@ -10,6 +10,8 @@ import '@babel/polyfill'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
 
+require('@/plugins/portal')
+
 Vue.config.productionTip = false
 
 store.axios = axios

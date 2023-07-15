@@ -1,48 +1,69 @@
 <template>
   <div class="page">
-    <v-row class="mb-2 align-center">
-      <v-spacer />
-      <v-col class="flex-grow-0">
-        <v-switch
-          v-model="isGrouped"
-          :label="$t('trainee.groupedByClubs')"
-          hide-details
-          class="mt-0"
-          @change="onIsGroupedChange"
-        />
-      </v-col>
-      <v-col class="flex-grow-0">
-        <button-switcher
-          switch-from="table"
-          switch-to="grid"
-          :default-view="view"
-          @change="onViewChange"
-        />
-      </v-col>
-      <v-col
-        lg="3"
-        md="3"
-      >
-        <add-edit-trainee ref="addEditTrainee"/>
-      </v-col>
-    </v-row>
-    <template v-if="isGrid">
-      <template v-if="isGrouped">
-        <div
-          v-for="(trainees, clubId) in traineesByClub"
-          :key="clubId"
-          class="mb-12"
-        >
-          <v-row>
-            <v-card class="py-2 px-4 ml-3">
-              <div class="text-h6">
-                {{ clubTitle(clubId) }}
-              </div>
-            </v-card>
-          </v-row>
+    <portal to="toolbar-content">
+      <v-row class="align-center">
+        <v-col class="flex-grow-0">
+          <v-switch
+            v-model="isGrouped"
+            :label="$t('trainee.groupedByClubs')"
+            hide-details
+            class="mt-0"
+            @change="onIsGroupedChange"
+          />
+        </v-col>
+        <v-col class="flex-grow-0">
+          <button-switcher
+            switch-from="table"
+            switch-to="grid"
+            :default-view="view"
+            @change="onViewChange"
+          />
+        </v-col>
+        <v-col>
+          <add-edit-trainee ref="addEditTrainee"/>
+        </v-col>
+      </v-row>
+    </portal>
+    <template v-if="getTrainees">
+      <template v-if="isGrid">
+        <template v-if="isGrouped">
+          <div
+            v-for="(trainees, clubId) in traineesByClub"
+            :key="clubId"
+            class="mb-12"
+          >
+            <v-row>
+              <v-card class="py-2 px-4 ml-3">
+                <div class="text-h6">
+                  {{ clubTitle(clubId) }}
+                </div>
+              </v-card>
+            </v-row>
+            <v-row>
+              <v-col
+                v-for="{ _id, id, picture, name, birthdate, sex } in trainees"
+                :key="id"
+                lg="3"
+                md="4"
+              >
+                <trainee
+                  :_id="_id"
+                  :id="id"
+                  :picture="picture"
+                  :name="name"
+                  :birthdate="birthdate"
+                  :sex="sex"
+                  @onEdit="onEdit"
+                  @onDelete="onDelete"
+                />
+              </v-col>
+            </v-row>
+          </div>
+        </template>
+        <template v-else>
           <v-row>
             <v-col
-              v-for="{ _id, id, picture, name, birthdate, sex } in trainees"
+              v-for="{ _id, id, picture, name, birthdate, sex } in getTrainees"
               :key="id"
               lg="3"
               md="4"
@@ -59,37 +80,16 @@
               />
             </v-col>
           </v-row>
-        </div>
+        </template>
       </template>
-      <template v-else>
-        <v-row>
-          <v-col
-            v-for="{ _id, id, picture, name, birthdate, sex } in getTrainees"
-            :key="id"
-            lg="3"
-            md="4"
-          >
-            <trainee
-              :_id="_id"
-              :id="id"
-              :picture="picture"
-              :name="name"
-              :birthdate="birthdate"
-              :sex="sex"
-              @onEdit="onEdit"
-              @onDelete="onDelete"
-            />
-          </v-col>
-        </v-row>
-      </template>
+      <trainees-table
+        v-if="isTable"
+        :items="getTrainees"
+        :is-grouped-by-club="isGrouped"
+        @onEdit="onEdit"
+        @onDelete="onDelete"
+      />
     </template>
-    <trainees-table
-      v-if="isTable"
-      :items="getTrainees"
-      :is-grouped-by-club="isGrouped"
-      @onEdit="onEdit"
-      @onDelete="onDelete"
-    />
   </div>
 </template>
 
