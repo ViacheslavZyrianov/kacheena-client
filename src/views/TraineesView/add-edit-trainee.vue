@@ -302,6 +302,9 @@ export default {
       await this.fetchTrainees()
       
       this.isDialogVisible = false
+      setTimeout(() => {
+        this.resetForm()
+      }, 300)
 
       this.isButtonRegisterTraineeDisabled = false
       this.isButtonRegisterTraineeLoading = false
@@ -322,6 +325,9 @@ export default {
       await this.fetchTrainees()
       
       this.isDialogVisible = false
+      setTimeout(() => {
+        this.resetForm()
+      }, 300)
 
       this.isButtonUpdateTraineeDisabled = false
       this.isButtonUpdateTraineeLoading = false
