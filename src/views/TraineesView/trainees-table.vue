@@ -12,8 +12,11 @@
     <template v-slot:[`item.birthdate`]="{ item: { birthdate } }">
       {{ birthdate | formatDate }}
     </template>
-    <template v-slot:[`item.club`]="{ item: { club } }">
-      {{ getClubById(club).title }}
+    <template
+      v-if="getClubs"
+      v-slot:[`item.club`]="{ item: { club } }"
+    >
+      {{ getClubById(club)?.title }}
     </template>
     <template v-slot:[`item.actions`]="{ item: { _id } }">
       <v-btn
@@ -61,7 +64,7 @@
         <v-icon v-else>
           mdi-chevron-down
         </v-icon>
-        {{ getClubById(items[0].club).title }}
+        {{ clubTitleWhenGrouped(items[0].club) }}
       </td>
     </template>
   </v-data-table>
@@ -88,10 +91,11 @@ export default {
   ],
   computed: {
     ...mapGetters({
+      getClubs: 'clubs/getClubs',
       getClubById: 'clubs/getClubById'
     }),
     headers() {
-      return [
+      const headers = [
         {
           text: this.$t('trainee.name'),
           value: 'name',
@@ -119,6 +123,10 @@ export default {
           sortable: false
         }
       ]
+
+      if (!this.getClubs) headers.splice(3, 1)
+
+      return headers
     },
     groupBy() {
       return (this.isGroupedByClub || null) && 'club'
@@ -130,6 +138,10 @@ export default {
     },
     onDelete(id) {
       this.$emit('onDelete', id)
+    },
+    clubTitleWhenGrouped(clubData) {
+      const club = this.getClubById(clubData)
+      return club ? club.title : this.$t('trainees.clubless')
     }
   }
 }

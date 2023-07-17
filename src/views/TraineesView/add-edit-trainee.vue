@@ -127,7 +127,6 @@
                 :items="getClubsForSelect"
                 filled
                 required
-                :readonly="getClubsForSelect.length === 1"
                 :label="$t('trainees.byRegistration.club.label')"
               />
 

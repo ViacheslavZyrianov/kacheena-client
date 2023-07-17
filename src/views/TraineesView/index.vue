@@ -5,6 +5,7 @@
         <v-col class="flex-grow-0">
           <v-switch
             v-model="isGrouped"
+            v-if="getClubs"
             :label="$t('trainee.groupedByClubs')"
             hide-details
             class="mt-0"
@@ -117,6 +118,7 @@ export default {
     ...mapGetters({
       getTrainees: 'trainees/getTrainees',
       getTraineeById: 'trainees/getTraineeById',
+      getClubs: 'clubs/getClubs',
       getClubById: 'clubs/getClubById'
     }),
     traineesByClub() {
