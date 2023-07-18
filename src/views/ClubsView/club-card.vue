@@ -160,7 +160,11 @@ export default {
       this.isDeleteButtonDisabled = true
       this.isDeleteButtonLoading = true
 
-      await this.deleteClub(this.id)
+      const { trainerId } = this.getClubById(this.id)
+      await this.deleteClub({
+        club: this.id,
+        trainerId
+      })
       await this.fetchClubs()
 
       this.isDeleteButtonDisabled = false

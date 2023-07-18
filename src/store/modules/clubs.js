@@ -27,10 +27,11 @@ export const actions = {
   async updateClub(_, payload) {
     await this.axios.put('club', payload)
   },
-  async deleteClub(_, payload) {
+  async deleteClub(_, { club, trainerId }) {
     await this.axios.delete('club', {
       params: {
-        id: payload
+        club,
+        trainerId
       }
     })
   }
