@@ -2,24 +2,26 @@
   <div class="page">
     <portal to="toolbar-content">
       <v-row class="align-center">
-        <v-col class="flex-grow-0">
-          <v-switch
-            v-model="isGrouped"
-            v-if="getClubs"
-            :label="$t('trainee.groupedByClubs')"
-            hide-details
-            class="mt-0"
-            @change="onIsGroupedChange"
-          />
-        </v-col>
-        <v-col class="flex-grow-0">
-          <button-switcher
-            switch-from="table"
-            switch-to="grid"
-            :default-view="view"
-            @change="onViewChange"
-          />
-        </v-col>
+        <template v-if="getTrainees.length">
+          <v-col class="flex-grow-0">
+            <v-switch
+              v-model="isGrouped"
+              v-if="getClubs"
+              :label="$t('trainee.groupedByClubs')"
+              hide-details
+              class="mt-0"
+              @change="onIsGroupedChange"
+            />
+          </v-col>
+          <v-col class="flex-grow-0">
+            <button-switcher
+              switch-from="table"
+              switch-to="grid"
+              :default-view="view"
+              @change="onViewChange"
+            />
+          </v-col>
+        </template>
         <v-col>
           <add-edit-trainee ref="addEditTrainee"/>
         </v-col>
