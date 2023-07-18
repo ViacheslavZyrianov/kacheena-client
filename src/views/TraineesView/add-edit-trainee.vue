@@ -321,21 +321,21 @@ export default {
         name: {
           value: '',
           rules: [
-            v => !!v || 'Name is required',
-            v => v.length <= 20 || 'Name must be less than 10 characters',
+            v => !!v || this.$t('trainees.byRegistration.name.errors.1'),
+            v => v.length <= 20 || this.$t('trainees.byRegistration.name.errors.2')
           ]
         },
         surname: {
           value: '',
           rules: [
-            v => !!v || 'Surname is required',
-            v => v.length <= 20 || 'Surame must be less than 10 characters',
+            v => !!v || this.$t('trainees.byRegistration.surname.errors.1'),
+            v => v.length <= 20 || this.$t('trainees.byRegistration.surname.errors.2')
           ]
         },
         birthdate: {
           value: '',
           rules: [
-            v => !!v || 'Birthdate is required'
+            v => !!v || this.$t('trainees.byRegistration.birthdate.errors.1')
           ],
           isMenuVisible: false,
           activePicker: null
@@ -344,16 +344,16 @@ export default {
           value: '',
           list: [
             {
-              text: 'Male',
+              text: this.$t('trainees.byRegistration.sex.male'),
               value: 'male'
             },
             {
-              text: 'Female',
+              text: this.$t('trainees.byRegistration.sex.female'),
               value: 'female'
             }
           ],
           rules: [
-            v => !!v || 'Sex is required'
+            v => !!v || this.$t('trainees.byRegistration.sex.errors.1'),
           ]
         },
         club: {

@@ -87,20 +87,34 @@ export default {
       label: 'Register',
       name: {
         label: 'Name',
-        placeholder: 'Name'
+        placeholder: 'Name',
+        errors: {
+          1: 'Name is required',
+          2: 'Name must be less than 20 characters'
+        }
       },
       surname: {
         label: 'Surname',
-        placeholder: 'Surname'
+        placeholder: 'Surname',
+        errors: {
+          1: 'Surname is required',
+          2: 'Surname must be less than 20 characters'
+        }
       },
       birthdate: {
-        label: 'Birthdate'
+        label: 'Birthdate',
+        errors: {
+          1: 'Birthdate is required'
+        }
       },
       sex: {
         label: 'Sex',
         placeholder: 'Sex',
         male: 'Male',
-        female: 'Female'
+        female: 'Female',
+        errors: {
+          1: 'Sex is required!'
+        }
       },
       club: {
         label: 'Club'
