@@ -123,9 +123,7 @@ export default {
     }),
     traineesByClub() {
       return this.getTrainees.reduce((acc, val) => {
-        if (acc[val.club]) acc[val.club].push(val)
-        else acc[val.club] = [val]
-        
+        acc[val.club] = [val]
         return acc
       }, {})
     },
