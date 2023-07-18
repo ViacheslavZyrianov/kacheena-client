@@ -183,7 +183,6 @@ export default {
         })
       }
       if (this.mode === 'update') {
-        console.log('update')
         await this.updateWeight({
           id: this.weightDataId,
           weight: this.weightValue
