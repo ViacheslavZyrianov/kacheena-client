@@ -81,7 +81,6 @@
               />
 
               <v-menu
-                ref="menu"
                 v-model="traineeRegistration.birthdate.isMenuVisible"
                 :close-on-content-click="false"
                 transition="scale-transition"
@@ -102,12 +101,15 @@
                   v-model="traineeRegistration.birthdate.value"
                   :active-picker.sync="traineeRegistration.birthdate.activePicker"
                   :max="birthdateMax"
-                  min="1930-01-01"
+                  min="1950-01-01"
+                  :allowed-dates="allowedDates"
                   width="268"
                   first-day-of-week="1"
                   no-title
                   show-adjacent-months
+                  :show-current="false"
                   filled
+                  @change="onDatepickerChange"
                 />
               </v-menu>
 
@@ -169,6 +171,8 @@ import { mapState, mapActions, mapGetters } from 'vuex'
 
 import formatDate from '@/mixins/formatDate'
 
+import { createDateObjectFromString } from '@/utils/dateFormatting'
+
 export default {
   name: 'TraineesAddTrainee',
   data: () => ({
@@ -184,6 +188,7 @@ export default {
         v => v.length === 21 || 'Id has to be 21 characters long',
       ]
     },
+    traineeRegistration: {},
     isRegisterTraineeFormValid: false,
     isButtonAddTraineeByIdDisabled: false,
     isButtonAddTraineeByIdLoading: false,
@@ -196,15 +201,15 @@ export default {
     formatDate
   ],
   watch: {
-    menu(val) {
-      val && setTimeout(() => (this.activePicker = 'YEAR'))
-    },
     isRegisterTraineeFormValid(val) {
       this.isButtonRegisterTraineeDisabled = !val
     },
     isDialogVisible() {
       this.addTraineeByTypeTabValue = this._isGoogleAuthEnabled ? 0 : 1
-    }
+    },
+    'traineeRegistration.birthdate.isMenuVisible'(val) {
+      val && setTimeout(() => (this.traineeRegistration.birthdate.activePicker = 'YEAR'))
+    },
   },
   computed: {
     ...mapState({
@@ -218,52 +223,14 @@ export default {
       return this.$t(`trainees.registration.sex.${this.traineeRegistration.sex}`)
     },
     birthdateMax() {
-      return (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)
-    },
-    traineeRegistration() {
-      return {
-        name: {
-          value: '',
-          rules: [
-            v => !!v || 'Name is required',
-            v => v.length <= 20 || 'Name must be less than 10 characters',
-          ]
-        },
-        surname: {
-          value: '',
-          rules: [
-            v => !!v || 'Surname is required',
-            v => v.length <= 20 || 'Surame must be less than 10 characters',
-          ]
-        },
-        birthdate: {
-          value: '',
-          rules: [
-            v => !!v || 'Birthdate is required'
-          ],
-          isMenuVisible: false,
-          activePicker: null
-        },
-        sex: {
-          value: '',
-          list: [
-            {
-              text: 'Male',
-              value: 'male'
-            },
-            {
-              text: 'Female',
-              value: 'female'
-            }
-          ],
-          rules: [
-            v => !!v || 'Sex is required'
-          ]
-        },
-        club: {
-          value: this.getClubsForSelect[0]?.value,
-        }
-      }
+      const today = new Date()
+      const yearsAgo = 12
+      const dateAnyYearsAgo = new Date(today.getFullYear() - yearsAgo, today.getMonth(), today.getDate())
+      return dateAnyYearsAgo
+        .toLocaleDateString('en-GB', { format: 'YYYY-MM-DD' })
+        .split('/')
+        .reverse()
+        .join('-')
     },
     isModeAdd() {
       return this.mode === 'add'
@@ -279,9 +246,12 @@ export default {
       fetchTrainees: 'trainees/fetchTrainees',
       updateUserTrainerId: 'users/updateUserTrainerId'
     }),
+    allowedDates(date) {
+      return createDateObjectFromString(date) <= createDateObjectFromString(this.birthdateMax)
+    },
     async onAddTraineeById() {
       await this.updateUserTrainerId({
-        id: this.traineeId,
+        id: this.traineeId.value,
         trainerId: this.getMeId
       })
     },
@@ -342,7 +312,58 @@ export default {
     },
     onDialogInput() {
       if (!this.isDialogVisible) this.resetForm()
+    },
+    onDatepickerChange() {
+      this.traineeRegistration.birthdate.isMenuVisible = false
+    },
+    applyDefaultDataForTraineeRegistration() {
+      this.traineeRegistration = {
+        name: {
+          value: '',
+          rules: [
+            v => !!v || 'Name is required',
+            v => v.length <= 20 || 'Name must be less than 10 characters',
+          ]
+        },
+        surname: {
+          value: '',
+          rules: [
+            v => !!v || 'Surname is required',
+            v => v.length <= 20 || 'Surame must be less than 10 characters',
+          ]
+        },
+        birthdate: {
+          value: '',
+          rules: [
+            v => !!v || 'Birthdate is required'
+          ],
+          isMenuVisible: false,
+          activePicker: null
+        },
+        sex: {
+          value: '',
+          list: [
+            {
+              text: 'Male',
+              value: 'male'
+            },
+            {
+              text: 'Female',
+              value: 'female'
+            }
+          ],
+          rules: [
+            v => !!v || 'Sex is required'
+          ]
+        },
+        club: {
+          value: this.getClubsForSelect[0]?.value,
+        }
+      }
     }
+  },
+  created() {
+    this.applyDefaultDataForTraineeRegistration()
   }
 }
 </script>
