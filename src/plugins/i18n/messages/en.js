@@ -46,7 +46,7 @@ export default {
     errors: {
       409: 'Login already exists, choose another one'
     },
-    success: 'Registration successfull! Now you will be logged in...',
+    success: 'Registration successful! Now you will be logged in...',
     or: 'or',
     button: 'Register'
   },
@@ -119,6 +119,7 @@ export default {
     clubless: 'Clubless'
   },
   trainee: {
+    label: 'Trainee',
     name: 'Name',
     sex: 'Sex',
     birthdate: 'Birthdate',
