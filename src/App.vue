@@ -2,6 +2,7 @@
   <v-app id="app">
     <the-navigation v-if="getMe" />
     <v-app-bar
+      v-if="!isLocaleSelectorVisible"
       app
       elevation="0"
     >
