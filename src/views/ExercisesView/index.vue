@@ -2,10 +2,10 @@
   <div class="page">
     <portal to="toolbar-content">
       <v-row>
-        <v-col
-          lg="3"
-          md="3"
-        >
+        <v-col>
+          <crud-type />
+        </v-col>
+        <v-col>
           <add-edit-exercise ref="addEditExercise" />
         </v-col>
       </v-row>
@@ -74,11 +74,13 @@
 import { mapGetters, mapActions } from 'vuex'
 
 import addEditExercise from './add-edit-exercise/index.vue'
+import crudType from './crud-type/index.vue'
 
 export default {
   name: 'ExercisesView',
   components: {
-    addEditExercise
+    addEditExercise,
+    crudType
   },
   data: () => ({
     exercise: null,

@@ -195,15 +195,9 @@ export default {
       label: 'Назва',
       placeholder: 'Введіть назву вправи'
     },
-    type: {
-      label: 'Тип',
-      cardio: 'Кардіо',
-      plyometrics: 'Пліометрія',
-      powerlifting: 'Паверліфтінг',
-      strength: 'Сила',
-      stretching: 'Стретчінг',
-      strongman: 'Стронгмен',
-      functional: 'Функціональе',
+    types: {
+      label: 'Типи вправ',
+      placeholder: 'Введіть назву типу вправи'
     },
     muscle: {
       label: 'Мʼязи',

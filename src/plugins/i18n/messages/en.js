@@ -194,15 +194,9 @@ export default {
       label: 'Title',
       placeholder: 'Enter exercises title'
     },
-    type: {
-      label: 'Type',
-      cardio: 'Cardio',
-      plyometrics: 'Plyometrics',
-      powerlifting: 'Powerlifting',
-      strength: 'Strength',
-      stretching: 'Stretching',
-      strongman: 'Strongman',
-      functional: 'Functional',
+    types: {
+      label: 'Exercises types',
+      placeholder: 'Enter exercise name'
     },
     muscle: {
       label: 'Muscle',
