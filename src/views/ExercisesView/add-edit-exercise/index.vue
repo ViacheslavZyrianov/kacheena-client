@@ -31,9 +31,9 @@
         />
         <v-autocomplete
           v-model="form.type"
-          :items="typeList"
+          :items="exerciseTypesItems"
           :rules="rules.type"
-          :label="$t('exercises.type.label')"
+          :label="$t('exercises.types.label')"
           required
           filled
           hide-details
@@ -74,9 +74,10 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
+
 import muscleList from './muscleList'
-import typeList from './typeList'
+import objectToTextValue from '@/utils/objectToTextValue'
 
 export default {
   name: 'ExercisesAddEditExercise',
@@ -102,6 +103,9 @@ export default {
     },
   },
   computed: {
+    ...mapGetters({
+      getExercisesTypes: 'exercises/getExercisesTypes'
+    }),
     rules() {
       return {
         title: [
@@ -115,11 +119,8 @@ export default {
         ]
       }
     },
-    typeList() {
-      return typeList.map(value => ({
-        text: this.$t(`exercises.type.${value}`),
-        value
-      }))
+    exerciseTypesItems() {
+      return objectToTextValue(this.getExercisesTypes)
     },
     muscleList() {
       return muscleList.map(value => ({

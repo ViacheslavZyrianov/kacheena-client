@@ -1,0 +1,1 @@
+export default obj => Object.entries(obj).map(([value, text]) => ({ text, value }))

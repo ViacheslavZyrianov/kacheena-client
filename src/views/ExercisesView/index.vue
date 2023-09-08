@@ -30,7 +30,7 @@
               outlined
               class="my-0"
             >
-              {{ $t(`exercises.type.${type}`) }}
+              {{ getExercisesTypes[type] }}
             </v-chip>
             <v-chip
               outlined
@@ -90,12 +90,14 @@ export default {
   computed: {
     ...mapGetters({
       getExercises: 'exercises/getExercises',
-      getExerciseById: 'exercises/getExerciseById'
+      getExerciseById: 'exercises/getExerciseById',
+      getExercisesTypes: 'exercises/getExercisesTypes'
     })
   },
   methods: {
     ...mapActions({
       fetchExercises: 'exercises/fetchExercises',
+      fetchExercisesTypes: 'exercises/fetchExercisesTypes',
       deleteExercise: 'exercises/deleteExercise'
     }),
     onEdit(id) {

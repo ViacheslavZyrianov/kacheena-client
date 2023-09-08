@@ -1,11 +1,13 @@
 export const state = () => ({
-  exercises: []
+  exercises: [],
+  exercisesTypes: {}
 })
 
 export const getters = {
   getExercises: ({ exercises }) => exercises,
   getExercisesForSelect: ({ exercises }) => exercises.map(({ _id: value, title: text }) => ({ value, text })),
   getExerciseById: ({ exercises }) => (id) => exercises.find(({ _id }) => _id === id),
+  getExercisesTypes: ({ exercisesTypes }) => exercisesTypes,
 }
 
 export const actions = {
@@ -34,12 +36,14 @@ export const actions = {
       }
     })
   },
-  async fetchExercisesTypes({ rootGetters }) {
+  async fetchExercisesTypes({ rootGetters, commit }) {
     const { data } = await this.axios.get('exercises-types', {
       params: {
         trainerId: rootGetters['users/getMeId']
       }
     })
+
+    commit('SET_EXERCISES_TYPES', data)
 
     return data
   },
