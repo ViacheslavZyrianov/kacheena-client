@@ -41,9 +41,9 @@
         />
         <v-autocomplete
           v-model="form.muscle"
-          :items="muscleList"
+          :items="exerciseMusclesItems"
           :rules="rules.muscle"
-          :label="$t('exercises.muscle.label')"
+          :label="$t('exercises.muscles.label')"
           required
           filled
           hide-details
@@ -76,7 +76,6 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 
-import muscleList from './muscleList'
 import objectToTextValue from '@/utils/objectToTextValue'
 
 export default {
@@ -104,7 +103,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getExercisesTypes: 'exercises/getExercisesTypes'
+      getExercisesTypes: 'exercises/getExercisesTypes',
+      getExercisesMuscles: 'exercises/getExercisesMuscles'
     }),
     rules() {
       return {
@@ -122,11 +122,8 @@ export default {
     exerciseTypesItems() {
       return objectToTextValue(this.getExercisesTypes)
     },
-    muscleList() {
-      return muscleList.map(value => ({
-        text: this.$t(`exercises.muscle.${value}`),
-        value
-      }))
+    exerciseMusclesItems() {
+      return objectToTextValue(this.getExercisesMuscles)
     }
   },
   methods: {

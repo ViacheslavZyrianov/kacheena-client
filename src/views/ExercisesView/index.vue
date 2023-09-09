@@ -39,7 +39,7 @@
               outlined
               class="my-0"
             >
-              {{ $t(`exercises.muscle.${muscle}`) }}
+              {{ getExercisesMuscles[muscle] }}
             </v-chip>
           </v-chip-group>
           <v-card
@@ -96,13 +96,13 @@ export default {
     ...mapGetters({
       getExercises: 'exercises/getExercises',
       getExerciseById: 'exercises/getExerciseById',
-      getExercisesTypes: 'exercises/getExercisesTypes'
+      getExercisesTypes: 'exercises/getExercisesTypes',
+      getExercisesMuscles: 'exercises/getExercisesMuscles'
     })
   },
   methods: {
     ...mapActions({
       fetchExercises: 'exercises/fetchExercises',
-      fetchExercisesTypes: 'exercises/fetchExercisesTypes',
       deleteExercise: 'exercises/deleteExercise'
     }),
     onEdit(id) {
@@ -128,7 +128,7 @@ export default {
     }
   },
   async created() {
-    await this.fetchExercises()
+    this.fetchExercises()
   }
 }
 </script>
