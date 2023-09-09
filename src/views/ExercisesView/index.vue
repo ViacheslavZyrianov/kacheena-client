@@ -13,64 +13,16 @@
         </v-col>
       </v-row>
     </portal>
-    <v-row>
-      <v-col
-        v-for="{ _id, title, type, muscle, notes } in getExercises"
-        :key="_id"
-        xl="2"
-        lg="3"
-        md="4"
-        cols="12"
-      >
-        <v-card
-          class="pa-4"
-        >
-          <div class="text-h6 mb-2">
-            {{ title }}
-          </div>
-          <v-chip-group class="mb-2 pa-0">
-            <v-chip
-              outlined
-              class="my-0"
-            >
-              {{ getExercisesTypes[type] }}
-            </v-chip>
-            <v-chip
-              outlined
-              class="my-0"
-            >
-              {{ getExercisesMuscles[muscle] }}
-            </v-chip>
-          </v-chip-group>
-          <v-card
-            v-if="notes"
-            outlined
-            class="mb-4"
-          >
-            <v-card-text>
-              {{ notes }}
-            </v-card-text>
-          </v-card>
-          <div class="mt-2 d-flex flex-column">
-            <v-btn
-              :disabled="isDeleteButtonDisabled"
-              :loading="isDeleteButtonLoading"
-              color="info"
-              class="mb-2"
-              @click="onEdit(_id)"
-            >
-              {{ $t('general.edit') }}
-            </v-btn>
-            <v-btn
-              color="error"
-              @click="onDelete(_id)"
-            >
-              {{ $t('general.delete') }}
-            </v-btn>
-          </div>
-        </v-card>
-      </v-col>
-    </v-row>
+    <view-grid
+      :items="getExercises"
+      :types="getExercisesTypes"
+      :muscles="getExercisesMuscles"
+      :is-delete-button-disabled="isDeleteButtonDisabled"
+      :is-delete-button-loading="isDeleteButtonLoading"
+      @edit="onEdit"
+      @delete="onDelete"
+    />
+    <!-- <view-list /> -->
   </div>
 </template>
 
@@ -78,15 +30,21 @@
 import { mapGetters, mapActions } from 'vuex'
 
 import addEditExercise from './add-edit-exercise/index.vue'
+
 import crudType from './crud-type/index.vue'
 import crudMuscles from './crud-muscles/index.vue'
+
+import viewGrid from './view-grid/index.vue'
+// import viewList from './view-list/index.vue'
 
 export default {
   name: 'ExercisesView',
   components: {
     addEditExercise,
     crudType,
-    crudMuscles
+    crudMuscles,
+    viewGrid,
+    // viewList
   },
   data: () => ({
     exercise: null,
