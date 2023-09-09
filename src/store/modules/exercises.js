@@ -1,6 +1,7 @@
 export const state = () => ({
   exercises: [],
-  exercisesTypes: {}
+  exercisesTypes: {},
+  exercisesMuscles: {}
 })
 
 export const getters = {
@@ -8,6 +9,7 @@ export const getters = {
   getExercisesForSelect: ({ exercises }) => exercises.map(({ _id: value, title: text }) => ({ value, text })),
   getExerciseById: ({ exercises }) => (id) => exercises.find(({ _id }) => _id === id),
   getExercisesTypes: ({ exercisesTypes }) => exercisesTypes,
+  getExercisesMuscles: ({ exercisesMuscles }) => exercisesMuscles
 }
 
 export const actions = {
@@ -66,6 +68,37 @@ export const actions = {
         id: payload
       }
     })
+  },
+  async fetchExercisesMuscles({ rootGetters, commit }) {
+    const { data } = await this.axios.get('exercises-muscles', {
+      params: {
+        trainerId: rootGetters['users/getMeId']
+      }
+    })
+
+    commit('SET_EXERCISES_MUSCLES', data)
+
+    return data
+  },
+  async postExercisesMuscle({ rootGetters }, payload) {
+    await this.axios.post('exercises-muscles', {
+      trainerId: rootGetters['users/getMeId'],
+      exercise: payload
+    })
+  },
+  async updateExercisesMuscles({ rootGetters }, payload) {
+    await this.axios.put('exercises-muscles', {
+      trainerId: rootGetters['users/getMeId'],
+      list: payload
+    })
+  },
+  async deleteExerciseMuscle({ rootGetters }, payload) {
+    await this.axios.delete('exercises-muscles', {
+      params: {
+        trainerId: rootGetters['users/getMeId'],
+        id: payload
+      }
+    })
   }
 }
 
@@ -75,5 +108,8 @@ export const mutations = {
   },
   SET_EXERCISES_TYPES (state, payload) {
     state.exercisesTypes = payload
+  },
+  SET_EXERCISES_MUSCLES (state, payload) {
+    state.exercisesMuscles = payload
   }
 }

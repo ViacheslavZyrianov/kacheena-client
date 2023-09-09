@@ -6,6 +6,9 @@
           <crud-type />
         </v-col>
         <v-col>
+          <crud-muscles />
+        </v-col>
+        <v-col>
           <add-edit-exercise ref="addEditExercise" />
         </v-col>
       </v-row>
@@ -75,12 +78,14 @@ import { mapGetters, mapActions } from 'vuex'
 
 import addEditExercise from './add-edit-exercise/index.vue'
 import crudType from './crud-type/index.vue'
+import crudMuscles from './crud-muscles/index.vue'
 
 export default {
   name: 'ExercisesView',
   components: {
     addEditExercise,
-    crudType
+    crudType,
+    crudMuscles
   },
   data: () => ({
     exercise: null,

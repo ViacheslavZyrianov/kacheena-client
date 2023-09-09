@@ -198,24 +198,9 @@ export default {
       label: 'Exercises types',
       placeholder: 'Enter exercise name'
     },
-    muscle: {
-      label: 'Muscle',
-      abdominals: 'Abdominals',
-      abductors: 'Abductors',
-      adductors: 'Adductors',
-      biceps: 'Biceps',
-      calves: 'Calves',
-      chest: 'Chest',
-      forearms: 'Forearms',
-      glutes: 'Glutes',
-      hamstrings: 'Hamstrings',
-      lats: 'Lats',
-      lowerBack: 'Lower back',
-      middleBack: 'Middle Back',
-      neck: 'Neck',
-      quadriceps: 'Quadriceps',
-      traps: 'Traps',
-      triceps: 'Triceps',
+    muscles: {
+      label: 'Exercises muscles',
+      placeholder: 'Enter muscle name'
     },
     notes: {
       label: 'Notes',

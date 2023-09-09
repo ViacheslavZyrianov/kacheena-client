@@ -199,24 +199,9 @@ export default {
       label: 'Типи вправ',
       placeholder: 'Введіть назву типу вправи'
     },
-    muscle: {
-      label: 'Мʼязи',
-      abdominals: 'Прес',
-      abductors: 'Абдуктори (відводячі)',
-      adductors: 'Аддуктри (приводячи)',
-      biceps: 'Біцепс',
-      calves: 'Ікри',
-      chest: 'Груди',
-      forearms: 'Передпліччя',
-      glutes: 'Думпа',
-      hamstrings: 'Біцепс стегна',
-      lats: 'Крила',
-      lowerBack: 'Низ спини',
-      middleBack: 'Середина спини',
-      neck: 'Шия',
-      quadriceps: 'Квадріцепс',
-      traps: 'Трапеція',
-      triceps: 'Тріцепс',
+    muscles: {
+      label: 'Типи мʼязів',
+      placeholder: 'Введіть назву мʼяза'
     },
     notes: {
       label: 'Нотатки',
