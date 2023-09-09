@@ -43,6 +43,7 @@
             </v-chip>
           </v-chip-group>
           <v-card
+            v-if="notes"
             outlined
             class="mb-4"
           >
