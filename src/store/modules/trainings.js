@@ -30,7 +30,16 @@ export const actions = {
         id: payload
       }
     })
-  }
+  },
+
+  async updateTrainingItemTime({ commit }, payload) {
+    await this.axios.put('training-schedule/item/time', payload)
+    commit('UPDATE_TRAINING_SCHEDULE_ITEM_TIME', {
+      id: payload.id,
+      date: payload.date,
+      time: payload.time
+    })
+  },
 }
 
 export const mutations = {
@@ -39,5 +48,10 @@ export const mutations = {
   },
   SET_TRAINING_SCHEDULES(state, payload) {
     state.trainingSchedules = payload
+  },
+  UPDATE_TRAINING_SCHEDULE_ITEM_TIME(state, payload) {
+    const { schedule: schedules } = state.trainingSchedules.find(({ _id }) => _id === payload.id)
+    const schedule = schedules.find(({ date }) => date === payload.date)
+    schedule.time = payload.time
   }
 }

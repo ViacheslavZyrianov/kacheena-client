@@ -13,8 +13,8 @@
           >
             <template v-if="trainingsByDay.length">
               <v-card
-                v-for="({ title, date, time, type, exercises }, index) in trainingsByDay"
-                :key="`${date}-${time}-${type}`"
+                v-for="({ id, title, date, time, type, exercises }, index) in trainingsByDay"
+                :key="`${id}-${date}-${time}-${type}`"
                 :class="trainingCardClassList(index)"
               >
                 <div class="mb-2 text-subtitle-1">
@@ -38,6 +38,12 @@
                 >
                   {{ getExerciseById(exerciseId)?.title }}
                 </v-chip>
+                <edit-training-time
+                  :id="id"
+                  :date="date"
+                  :initial-time-value="time"
+                  @trainingTimeUpdated="onTrainingTimeUpdated"
+                />
               </v-card>
             </template>
             <v-card
@@ -86,6 +92,7 @@ import { mapActions, mapGetters } from 'vuex'
 
 import addEditTrainingSchedule from './add-edit-training-schedule.vue'
 import trainingSchedule from './trainingSchedule.vue'
+import editTrainingTime from './edit-training-time.vue'
 
 import dayjs from '@/plugins/dayjs'
 
@@ -95,7 +102,8 @@ export default {
   name: 'TraineeDatepickerTraining',
   components: {
     addEditTrainingSchedule,
-    trainingSchedule
+    trainingSchedule,
+    editTrainingTime
   },
   mixins: [
     formatDate
@@ -161,6 +169,7 @@ export default {
         trainingSchedule.schedule.forEach(schedule => {
           if (dateValue === schedule.date) {
             Object.assign(training, schedule)
+            training.id = trainingSchedule._id
             training.title = trainingSchedule.title
             training.type = trainingSchedule.type
             trainingsByDate.push(training)
@@ -169,6 +178,9 @@ export default {
       })
 
       return trainingsByDate
+    },
+    onTrainingTimeUpdated(date) {
+      this.onDateClick(date)
     }
   },
   async created() {

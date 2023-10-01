@@ -181,6 +181,9 @@ export default {
         nextWeek: 'Next week',
         nextMonth: 'Next month',
         customDate: 'Custom date'
+      },
+      item: {
+        changeTime: 'Change time'
       }
     },
     weight: {

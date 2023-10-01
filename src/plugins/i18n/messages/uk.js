@@ -182,6 +182,9 @@ export default {
         nextWeek: 'Наступного тижня',
         nextMonth: 'Наступного місяця',
         customDate: 'Обрати дату'
+      },
+      item: {
+        changeTime: 'Змінити час'
       }
     },
     weight: {
