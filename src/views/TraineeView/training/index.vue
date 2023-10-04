@@ -17,17 +17,23 @@
                 :key="`${id}-${date}-${time}-${type}`"
                 :class="trainingCardClassList(index)"
               >
-                <div class="mb-2 text-subtitle-1">
+                <div
+                  :class="titleClassList(time)"
+                >
                   {{ title }}
                 </div>
                 <v-chip
-                  :color="generateColorByTrainingType(type)"
+                  :disabled="isTrainingCancelled(time)"
+                  :color="generateColorByTrainingType(type, time)"
                   class="mb-2"
                   outlined
                 >
                   {{ $t(`trainee.training.type.${type}`) }}
                 </v-chip>
-                <div class="d-flex align-center mb-2">
+                <div
+                  v-if="time"
+                  class="d-flex align-center mb-2"
+                >
                   <v-icon class="mr-1">mdi-clock-time-five-outline</v-icon>
                   <div class="text-subtitle-2">{{ time }}</div>
                 </div>
@@ -42,7 +48,14 @@
                   :id="id"
                   :date="date"
                   :initial-time-value="time"
+                  :type="cancelOrRestoreTraining(time)"
                   @trainingTimeUpdated="onTrainingTimeUpdated"
+                />
+                <cancel-training
+                  v-if="!isTrainingCancelled(time)"
+                  :id="id"
+                  :date="date"
+                  @cancelled="onTrainingCancelled"
                 />
               </v-card>
             </template>
@@ -93,6 +106,7 @@ import { mapActions, mapGetters } from 'vuex'
 import addEditTrainingSchedule from './add-edit-training-schedule.vue'
 import trainingSchedule from './trainingSchedule.vue'
 import editTrainingTime from './edit-training-time.vue'
+import cancelTraining from './cancel-training.vue'
 
 import dayjs from '@/plugins/dayjs'
 
@@ -103,7 +117,8 @@ export default {
   components: {
     addEditTrainingSchedule,
     trainingSchedule,
-    editTrainingTime
+    editTrainingTime,
+    cancelTraining
   },
   mixins: [
     formatDate
@@ -114,8 +129,11 @@ export default {
     trainingSchedulesValue: [],
     colors: {
       default: 'green',
+      defaultCancelled: 'green lighten-4',
       personal: 'red',
-      group: 'blue'
+      personalCancelled: 'red lighten-4',
+      group: 'blue',
+      groupCancelled: 'blue lighten-4'
     },
     trainingsByDay: [],
   }),
@@ -138,8 +156,9 @@ export default {
     applyDefaultTrainingScheduleValue() {
       this.trainingSchedulesValue = this.getTrainingSchedules.map(({ _id }) => _id)
     },
-    generateColorByTrainingType(type) {
-      return this.colors[type]
+    generateColorByTrainingType(type, time) {
+      const color = time === null ? `${type}Cancelled` : type
+      return this.colors[color]
     },
     trainingCardClassList(index) {
       return [
@@ -151,8 +170,11 @@ export default {
       const colors = []
 
       this.trainingSchedulesSelected.forEach(({ schedule, type }) => {
-        schedule.forEach(({ date }) => {
-          if (dateInDatepicker === date) colors.push(this.colors[type])
+        schedule.forEach(({ date, time }) => {
+          if (dateInDatepicker === date) {
+            const color = time === null ? `${type}Cancelled` : type
+            colors.push(this.colors[color])
+          }
         })
       })
 
@@ -181,6 +203,21 @@ export default {
     },
     onTrainingTimeUpdated(date) {
       this.onDateClick(date)
+    },
+    onTrainingCancelled(date) {
+      this.onDateClick(date)
+    },
+    isTrainingCancelled(time) {
+      return time === null
+    },
+    cancelOrRestoreTraining(time) {
+      return this.isTrainingCancelled(time) ? 'cancel' : 'restore'
+    },
+    titleClassList(time) {
+      return [
+        'mb-2 text-subtitle-1',
+        { 'text-decoration-line-through text--disabled': this.isTrainingCancelled(time) },
+      ]
     }
   },
   async created() {

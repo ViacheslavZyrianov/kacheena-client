@@ -6,11 +6,11 @@
     <template v-slot:activator="{ on, attrs }">
       <v-btn
         block
-        color="primary"
+        :color="buttonColor"
         v-bind="attrs"
         v-on="on"
       >
-        {{ $t('trainee.training.item.changeTime') }}
+        {{ buttonText }}
       </v-btn>
     </template>
     <v-card class="pa-4">
@@ -51,6 +51,10 @@ export default {
     initialTimeValue: {
       type: String,
       default: '00:00'
+    },
+    type: {
+      type: String,
+      default: 'cancel'
     }
   },
   data: () => ({
@@ -59,6 +63,18 @@ export default {
     isSaveButtonDisabled: false,
     isSaveButtonLoading: false
   }),
+  computed: {
+    buttonColor() {
+      if (this.type === 'cancel') return 'success'
+      else if (this.type === 'restore') return 'primary'
+      else return 'primary'
+    },
+    buttonText() {
+      if (this.type === 'cancel') return this.$t('trainee.training.item.restore')
+      else if (this.type === 'restore') return this.$t('trainee.training.item.changeTime')
+      else return 'primary'
+    }
+  },
   methods: {
     ...mapActions({
       updateTrainingItemTime: 'trainings/updateTrainingItemTime'

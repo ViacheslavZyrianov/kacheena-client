@@ -184,7 +184,9 @@ export default {
         customDate: 'Обрати дату'
       },
       item: {
-        changeTime: 'Змінити час'
+        changeTime: 'Змінити час',
+        cancel: 'Відмінити тренування',
+        restore: 'Відновити тренування'
       }
     },
     weight: {

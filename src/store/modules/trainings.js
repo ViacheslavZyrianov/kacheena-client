@@ -40,6 +40,15 @@ export const actions = {
       time: payload.time
     })
   },
+
+  async cancelTrainingItem({ commit }, payload) {
+    await this.axios.put('training-schedule/item/cancel', payload)
+    commit('UPDATE_TRAINING_SCHEDULE_ITEM_TIME', {
+      id: payload.id,
+      date: payload.date,
+      time: null
+    })
+  }
 }
 
 export const mutations = {

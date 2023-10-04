@@ -183,7 +183,9 @@ export default {
         customDate: 'Custom date'
       },
       item: {
-        changeTime: 'Change time'
+        changeTime: 'Change time',
+        cancel: 'Cancel training',
+        restore: 'Restore training'
       }
     },
     weight: {
